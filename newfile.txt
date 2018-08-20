@@ -1,0 +1,12 @@
+{
+    "repository": {
+        "registryId": "933186250239", 
+        "repositoryName": "hello-world", 
+        "repositoryArn": "arn:aws:ecr:eu-west-1:933186250239:repository/hello-world", 
+        "createdAt": 1534777326.0, 
+        "repositoryUri": "933186250239.dkr.ecr.eu-west-1.amazonaws.com/hello-world"
+    }
+}
+
+aws cloudformation create-stack --template-body file://ecs-cluster.template --stack-name EcsClusterStack --capabilities CAPABILITY_IAM --tags Key=Name,Value=ECS --region eu-west-1 --parameters ParameterKey=KeyName,ParameterValue=aws-eb ParameterKey=EcsCluster,ParameterValue=getting-started ParameterKey=AsgMaxSize,ParameterValue=2 --profile trib-stg
+aws cloudformation create-stack --template-body file://ecs-jenkins-demo.template --stack-name JenkinsStack --capabilities CAPABILITY_IAM --tags Key=Name,Value=Jenkins --region eu-west-1 --parameters ParameterKey=EcsStackName,ParameterValue=EcsClusterStack --profile trib-stg
